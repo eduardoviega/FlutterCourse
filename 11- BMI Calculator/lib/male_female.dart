@@ -6,7 +6,7 @@ TextStyle txtStyle = const TextStyle(
 );
 
 class MaleFemale extends StatelessWidget {
-  MaleFemale(@required this.iconML, @required this.textML);
+  MaleFemale({required this.iconML, required this.textML});
 
   final IconData iconML;
   final String textML;
