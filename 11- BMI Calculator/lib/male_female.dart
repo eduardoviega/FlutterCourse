@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-
-TextStyle txtStyle = const TextStyle(
-  fontSize: 18.0,
-  color: Color(0xFF8D8E98),
-);
+import 'constants.dart';
 
 class MaleFemale extends StatelessWidget {
   MaleFemale({required this.iconML, required this.textML});
@@ -25,7 +21,7 @@ class MaleFemale extends StatelessWidget {
         ),
         Text(
           textML,
-          style: txtStyle,
+          style: kTextStyle,
         ),
       ],
     );
