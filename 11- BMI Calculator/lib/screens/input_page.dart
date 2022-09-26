@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'reusable_card.dart';
-import 'male_female.dart';
-import 'constants.dart';
+import 'package:bmi_calculator/components/reusable_card.dart';
+import 'package:bmi_calculator/components/male_female.dart';
+import 'package:bmi_calculator/constants.dart';
 import 'results_page.dart';
+import 'package:bmi_calculator/components/bottom_button.dart';
 
 enum Gender {
   male,
@@ -134,22 +135,26 @@ class _InputPageState extends State<InputPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            RoundIconButton(
-                              icon: FontAwesomeIcons.minus,
-                              // onPressed: () {
-                              //   setState(() {
-                              //     weigth--;
-                              //   });
-                              // },
+                            FloatingActionButton(
+                              onPressed: () {
+                                setState(() => weigth--);
+                              },
+                              elevation: 6.0,
+                              backgroundColor: const Color(0xFF4C4F5E),
+                              shape: const CircleBorder(),
+                              child: const Icon(FontAwesomeIcons.minus,
+                                  color: Colors.white),
                             ),
                             SizedBox(width: 10.0),
-                            RoundIconButton(
-                              icon: FontAwesomeIcons.plus,
-                              // onPressed: () {
-                              //   setState(() {
-                              //     weigth++;
-                              //   });
-                              // },
+                            FloatingActionButton(
+                              onPressed: () {
+                                setState(() => weigth++);
+                              },
+                              elevation: 6.0,
+                              backgroundColor: const Color(0xFF4C4F5E),
+                              shape: const CircleBorder(),
+                              child: const Icon(FontAwesomeIcons.plus,
+                                  color: Colors.white),
                             ),
                           ],
                         )
@@ -169,22 +174,26 @@ class _InputPageState extends State<InputPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            RoundIconButton(
-                              icon: FontAwesomeIcons.minus,
-                              // onPressed: () {
-                              //   setState(() {
-                              //     age--;
-                              //   });
-                              // },
+                            FloatingActionButton(
+                              onPressed: () {
+                                setState(() => age--);
+                              },
+                              elevation: 6.0,
+                              backgroundColor: const Color(0xFF4C4F5E),
+                              shape: const CircleBorder(),
+                              child: const Icon(FontAwesomeIcons.minus,
+                                  color: Colors.white),
                             ),
                             SizedBox(width: 10.0),
-                            RoundIconButton(
-                              icon: FontAwesomeIcons.plus,
-                              // onPressed: () {
-                              //   setState(() {
-                              //     age++;
-                              //   });
-                              // },
+                            FloatingActionButton(
+                              onPressed: () {
+                                setState(() => age++);
+                              },
+                              elevation: 6.0,
+                              backgroundColor: const Color(0xFF4C4F5E),
+                              shape: const CircleBorder(),
+                              child: const Icon(FontAwesomeIcons.plus,
+                                  color: Colors.white),
                             ),
                           ],
                         )
@@ -197,18 +206,9 @@ class _InputPageState extends State<InputPage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ResultsPage()));
+              Navigator.pushNamed(context, '/results');
             },
-            child: Container(
-              child: Center(
-                child: Text("CALCULATE", style: kTextStyleBottom),
-              ),
-              color: kBottomContainerColour,
-              margin: const EdgeInsets.only(top: 10.0),
-              width: double.infinity,
-              height: kBottomContainerHeight,
-            ),
+            child: BottomButton(buttonTitle: "CALCULATE"),
           ),
         ],
       ),
@@ -217,17 +217,15 @@ class _InputPageState extends State<InputPage> {
 }
 
 class RoundIconButton extends StatelessWidget {
-  RoundIconButton({required this.icon});
-  // RoundIconButton({required this.icon, required this.onPressed});
+  RoundIconButton({required this.icon, required this.onPressed});
 
   final IconData icon;
-  // final Function onPressed;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {},
-      // onPressed: onPressed(),
+      onPressed: onPressed(),
       elevation: 6.0,
       backgroundColor: const Color(0xFF4C4F5E),
       // constraints: const BoxConstraints.tightFor(
@@ -235,7 +233,6 @@ class RoundIconButton extends StatelessWidget {
       //   height: 56.0,
       // ),
       shape: const CircleBorder(),
-      // fillColor: const Color(0xFF4C4F5E),
       child: Icon(icon, color: Colors.white),
     );
   }
