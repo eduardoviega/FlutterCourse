@@ -39,38 +39,38 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(
-                    onPress: () {
-                      selectedGender = Gender.male;
-                      // setState(() {
-                      //   selectedGender = Gender.male;
-                      // });
-                    },
-                    colour: selectedGender == Gender.male
-                        ? kActiveCardColor
-                        : kInactiveCardColor,
-                    cardChild: MaleFemale(
-                      iconML: FontAwesomeIcons.mars,
-                      textML: 'MALE',
-                    ),
-                  ),
+                  child: GestureDetector(
+                      onTap: () {
+                        setState(() => selectedGender = Gender.male);
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(15.0),
+                        decoration: BoxDecoration(
+                          color: selectedGender == Gender.male
+                              ? kActiveCardColor
+                              : kInactiveCardColor,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: MaleFemale(
+                            iconML: FontAwesomeIcons.mars, textML: 'MALE'),
+                      )),
                 ),
                 Expanded(
-                  child: ReusableCard(
-                    onPress: () {
-                      selectedGender = Gender.female;
-                      // setState(() {
-                      //   selectedGender = Gender.female;
-                      // });
-                    },
-                    colour: selectedGender == Gender.female
-                        ? kActiveCardColor
-                        : kInactiveCardColor,
-                    cardChild: MaleFemale(
-                      iconML: FontAwesomeIcons.venus,
-                      textML: 'FEMALE',
-                    ),
-                  ),
+                  child: GestureDetector(
+                      onTap: () {
+                        setState(() => selectedGender = Gender.female);
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.all(15.0),
+                        decoration: BoxDecoration(
+                          color: selectedGender == Gender.female
+                              ? kActiveCardColor
+                              : kInactiveCardColor,
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: MaleFemale(
+                            iconML: FontAwesomeIcons.venus, textML: 'FEMALE'),
+                      )),
                 ),
               ],
             ),
