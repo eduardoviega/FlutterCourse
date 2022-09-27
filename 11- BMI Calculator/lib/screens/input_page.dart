@@ -3,8 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:bmi_calculator/components/reusable_card.dart';
 import 'package:bmi_calculator/components/male_female.dart';
 import 'package:bmi_calculator/constants.dart';
-import 'results_page.dart';
 import 'package:bmi_calculator/components/bottom_button.dart';
+import 'package:bmi_calculator/calculator_brain.dart';
+import 'results_page.dart';
 
 enum Gender {
   male,
@@ -15,13 +16,14 @@ class InputPage extends StatefulWidget {
   const InputPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _InputPageState createState() => _InputPageState();
 }
 
 class _InputPageState extends State<InputPage> {
   Gender selectedGender = Gender.male;
-  int heigth = 180;
-  int weigth = 62;
+  int height = 180;
+  int weight = 62;
   int age = 18;
 
   @override
@@ -91,27 +93,27 @@ class _InputPageState extends State<InputPage> {
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     textBaseline: TextBaseline.alphabetic,
                     children: [
-                      Text(heigth.toString(), style: kNumberTextStyle),
+                      Text(height.toString(), style: kNumberTextStyle),
                       Text('cm', style: kTextStyle)
                     ],
                   ),
                   SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                        thumbColor: Color(0xFFEB1555),
+                        thumbColor: const Color(0xFFEB1555),
                         activeTrackColor: Colors.white,
-                        inactiveTrackColor: Color(0xFF8D8E98),
-                        overlayColor: Color(0x29EB1555),
-                        thumbShape:
-                            RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                        inactiveTrackColor: const Color(0xFF8D8E98),
+                        overlayColor: const Color(0x29EB1555),
+                        thumbShape: const RoundSliderThumbShape(
+                            enabledThumbRadius: 15.0),
                         overlayShape:
-                            RoundSliderOverlayShape(overlayRadius: 30.0)),
+                            const RoundSliderOverlayShape(overlayRadius: 30.0)),
                     child: Slider(
-                      value: heigth.toDouble(),
+                      value: height.toDouble(),
                       min: 120.0,
                       max: 220.0,
                       onChanged: (double newValue) {
                         setState(() {
-                          heigth = newValue.round();
+                          height = newValue.round();
                         });
                       },
                     ),
@@ -131,13 +133,13 @@ class _InputPageState extends State<InputPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text('WEIGHT', style: kTextStyle),
-                        Text(weigth.toString(), style: kNumberTextStyle),
+                        Text(weight.toString(), style: kNumberTextStyle),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FloatingActionButton(
                               onPressed: () {
-                                setState(() => weigth--);
+                                setState(() => weight--);
                               },
                               elevation: 6.0,
                               backgroundColor: const Color(0xFF4C4F5E),
@@ -145,10 +147,10 @@ class _InputPageState extends State<InputPage> {
                               child: const Icon(FontAwesomeIcons.minus,
                                   color: Colors.white),
                             ),
-                            SizedBox(width: 10.0),
+                            const SizedBox(width: 10.0),
                             FloatingActionButton(
                               onPressed: () {
-                                setState(() => weigth++);
+                                setState(() => weight++);
                               },
                               elevation: 6.0,
                               backgroundColor: const Color(0xFF4C4F5E),
@@ -184,7 +186,7 @@ class _InputPageState extends State<InputPage> {
                               child: const Icon(FontAwesomeIcons.minus,
                                   color: Colors.white),
                             ),
-                            SizedBox(width: 10.0),
+                            const SizedBox(width: 10.0),
                             FloatingActionButton(
                               onPressed: () {
                                 setState(() => age++);
@@ -206,7 +208,18 @@ class _InputPageState extends State<InputPage> {
           ),
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/results');
+              CalculatorBrain calc =
+                  CalculatorBrain(height: height, weight: weight);
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultsPage(
+                      bmiResult: calc.calculateBMI(),
+                      resultText: calc.getResult(),
+                      interpretation: calc.getInterpretation(),
+                    ),
+                  ));
             },
             child: BottomButton(buttonTitle: "CALCULATE"),
           ),
@@ -228,18 +241,8 @@ class RoundIconButton extends StatelessWidget {
       onPressed: onPressed(),
       elevation: 6.0,
       backgroundColor: const Color(0xFF4C4F5E),
-      // constraints: const BoxConstraints.tightFor(
-      //   width: 56.0,
-      //   height: 56.0,
-      // ),
       shape: const CircleBorder(),
       child: Icon(icon, color: Colors.white),
     );
   }
 }
-
-// FloatingActionButton(
-// onPressed: null,
-// child: Icon(Icons.add, color: Colors.white),
-// backgroundColor: Color(0xFF3C3F57),
-// )

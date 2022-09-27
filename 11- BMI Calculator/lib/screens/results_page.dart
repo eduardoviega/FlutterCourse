@@ -5,11 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:bmi_calculator/components/bottom_button.dart';
 
 class ResultsPage extends StatelessWidget {
+  ResultsPage(
+      {required this.bmiResult,
+      required this.resultText,
+      required this.interpretation});
+
+  final String bmiResult;
+  final String resultText;
+  final String interpretation;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('BMI Calculator'),
+        title: const Text('BMI Calculator'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -17,7 +26,7 @@ class ResultsPage extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               alignment: Alignment.bottomLeft,
               child: Text('Your Result', style: kTitleTextStyle),
             ),
@@ -30,10 +39,35 @@ class ResultsPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Normal', style: kResultTextStyle),
-                  Text('18,3', style: kBMITextStyle),
-                  Text('Your BMI results is quite low, you should eat more!',
-                      textAlign: TextAlign.center, style: kBodyTextStyle),
+                  Text(
+                    resultText.toUpperCase(),
+                    style: kResultTextStyle,
+                  ),
+                  Text(
+                    bmiResult,
+                    style: kBMITextStyle,
+                  ),
+                  Column(
+                    children: [
+                      const Text(
+                        'Normal BMI range:',
+                        style:
+                            TextStyle(fontSize: 22.0, color: Color(0xFF8D8E98)),
+                      ),
+                      Text(
+                        '18,5 - 25 kg/m²',
+                        style: kBodyTextStyle,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                    child: Text(
+                      interpretation,
+                      textAlign: TextAlign.center,
+                      style: kBodyTextStyle,
+                    ),
+                  ),
                 ],
               ),
               onPress: () {},

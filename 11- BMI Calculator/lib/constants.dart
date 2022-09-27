@@ -21,7 +21,7 @@ TextStyle kNumberTextStyle = const TextStyle(
 );
 
 TextStyle kTitleTextStyle = const TextStyle(
-  fontSize: 50.0,
+  fontSize: 45.0,
   fontWeight: FontWeight.bold,
 );
 
