@@ -53,7 +53,7 @@ class _InputPageState extends State<InputPage> {
                               : kInactiveCardColor,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: MaleFemale(
+                        child: const MaleFemale(
                             iconML: FontAwesomeIcons.mars, textML: 'MALE'),
                       )),
                 ),
@@ -70,7 +70,7 @@ class _InputPageState extends State<InputPage> {
                               : kInactiveCardColor,
                           borderRadius: BorderRadius.circular(10.0),
                         ),
-                        child: MaleFemale(
+                        child: const MaleFemale(
                             iconML: FontAwesomeIcons.venus, textML: 'FEMALE'),
                       )),
                 ),
@@ -79,7 +79,6 @@ class _InputPageState extends State<InputPage> {
           ),
           Expanded(
             child: ReusableCard(
-              onPress: () {},
               colour: kActiveCardColor,
               cardChild: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -127,7 +126,6 @@ class _InputPageState extends State<InputPage> {
               children: [
                 Expanded(
                   child: ReusableCard(
-                    onPress: () {},
                     colour: kActiveCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -159,14 +157,13 @@ class _InputPageState extends State<InputPage> {
                                   color: Colors.white),
                             ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
-                    onPress: () {},
                     colour: kActiveCardColor,
                     cardChild: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -210,39 +207,21 @@ class _InputPageState extends State<InputPage> {
             onTap: () {
               CalculatorBrain calc =
                   CalculatorBrain(height: height, weight: weight);
-
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ResultsPage(
-                      bmiResult: calc.calculateBMI(),
-                      resultText: calc.getResult(),
-                      interpretation: calc.getInterpretation(),
-                    ),
-                  ));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ResultsPage(
+                    bmiResult: calc.calculateBMI(),
+                    resultText: calc.getResult(),
+                    interpretation: calc.getInterpretation(),
+                  ),
+                ),
+              );
             },
-            child: BottomButton(buttonTitle: "CALCULATE"),
+            child: const BottomButton(buttonTitle: "CALCULATE"),
           ),
         ],
       ),
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  RoundIconButton({required this.icon, required this.onPressed});
-
-  final IconData icon;
-  final Function onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-      onPressed: onPressed(),
-      elevation: 6.0,
-      backgroundColor: const Color(0xFF4C4F5E),
-      shape: const CircleBorder(),
-      child: Icon(icon, color: Colors.white),
     );
   }
 }

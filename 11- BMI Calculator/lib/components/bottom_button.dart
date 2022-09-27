@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:bmi_calculator/constants.dart';
 
 class BottomButton extends StatelessWidget {
-  BottomButton({required this.buttonTitle});
+  const BottomButton({super.key, required this.buttonTitle});
 
   final String buttonTitle;
 
