@@ -1,4 +1,4 @@
-# navigation
+# Navigation
 
 A new Flutter project.
 
